@@ -1,0 +1,18 @@
+<inventory format="5" revision_id="ilya@neuron-20080304183333-64f90500f28a17c2">
+<directory file_id="muttiUaF0R-20080304183313-e3f0268940cd7bf7" name=".muttiUaF0R" revision="ilya@neuron-20080304183333-64f90500f28a17c2" />
+<file file_id="__init__.py-20080304183313-526ac1b382d78d5d" name="__init__.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="71a83ac64cad1181f509e7a6407a629e91e8556c" text_size="1526" />
+<file file_id="basic.py-20080304183313-6ce80fc85720e734" name="basic.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="78e81e92522d913fc2893794a8475959c642e89c" text_size="3476" />
+<file file_id="basic0.py-20080304183313-8abb87c9b11b3339" name="basic0.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="a16a18d1e43b75f8dd57045a7c23d464078c2216" text_size="618" />
+<file file_id="basic2.py-20080304183313-bed37dbc929f7b66" name="basic2.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="8052a5116227b4f5ce40e7792b63ea30ab54f1e4" text_size="174" />
+<file file_id="basic3.py-20080304183313-e7f80031a76ef133" name="basic3.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="fa16dc0373b719b4c660f3aa2f8e446f05d88820" text_size="4408" />
+<file file_id="basic4.py-20080304183313-5bd56247d8190f33" name="basic4.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="40630b2ec23df42942e7beadc991e97486ad8b04" text_size="911" />
+<file file_id="basic5.py-20080304183313-f0497a3c5fff601b" name="basic5.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="ff4d3fd64e8eb49900f5f8f50c3f4faa63c76a4f" text_size="1768" />
+<file file_id="ginput.py-20080304183313-06fb7c53b4c06eae" name="ginput.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="e54c7710a781ede2d20f301f42e2a15f65991523" text_size="2094" />
+<file file_id="img.py-20080304183313-be4c93c61a9e69e6" name="img.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="db1400b47a7f6082b592c0d0a319e9dbf9796a09" text_size="226" />
+<file file_id="infix.py-20080304183313-62c2d3988545b1e5" name="infix.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="de74ac888265c9ee282975fc8858784084bdd4c2" text_size="580" />
+<file file_id="interp2d.py-20080304183313-7c033210a63122ec" name="interp2d.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="864bd8f0d9a50f91f1c5309ea8f9278725393c93" text_size="11173" />
+<file file_id="loader.py-20080304183313-1ef5928b7ef66e31" name="loader.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="076bddc1c2232878329df924e833b5a0e0dca39b" text_size="674" />
+<file file_id="named_vec.py-20080304183313-e48390b1dc9ba1c0" name="named_vec.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="7ab71b1e837842b4827ead35700dc81524a58279" text_size="6546" />
+<file file_id="par.py-20080304183313-5be9a84a143732ce" name="par.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="8c3dd0a7663f25ca4786b3d4c2b58f53449d7a04" text_size="18588" />
+<file file_id="weight_decay.py-20080304183313-8166a4ebc5f6ea2e" name="weight_decay.py" revision="ilya@neuron-20080304183333-64f90500f28a17c2" text_sha1="10462a6bb240af92758ee267209b43fc98e42598" text_size="152" />
+</inventory>

@@ -1,0 +1,127 @@
+
+
+IMPORTANT NOTE:
+
+This is the code for the simulations in the paper "The Recurrent
+Temporal Restricted Boltzmann Machine". Please note this code should
+be used at your own risk. There is no implied guarantee that it will
+not do anything stupid.
+
+ANOTHER IMPORTANT NOTE: the basic code of the mocap display was
+written by Neil Lawrence. 
+
+
+This code was run on python 2.5 and numpy 1.1.1.
+To display the samples of the walking person, please install the
+mlabwrap package (for talking with matlab) and have matlab installed.
+Otherwise, you will only be able to visualize the samples of the
+bouncing balls. (Note that we generate a bouncing balls sequence on
+the fly; hence the same data function is used for the training and the
+test set). 
+
+To run an experiment, do the following:
+
+cd rnn_rtrbm (the unpacked directory)
+
+ipython -pylab
+
+type to the python prompt:
+
+>> import p8.rnn_trbm.r.r_balls as r
+or 
+>> import p8.rnn_trbm.r.r_mocap as r
+
+Depending on whether you wish to do the mocap experiments or the
+bouncing balls experiments. 
+
+You will be asked whether you want an RTRBM or a TRBM (type 0 for the
+RTRBM, 1 for the TRBM).
+
+Then please type
+
+>> r.init_good_VH(); r.t.train()
+
+to train.
+
+The MOCAP trains pretty fast (over night), while the bouncing balls
+problems trains for a considerably longer amount of time (about a week
+on a fast computer). I don't know if this is the optimal amount of
+training; I just wanted to be sure that the models will know their
+dataset really well.
+
+Now, if you wish to observe the samples of the models, type
+
+Ctrl-C to break the simulation.
+
+Then type
+
+>> X = r.t.W.sample(T, G)
+
+where T is the length of the sequence you wish to sample, while G is
+the number of gibbs steps you wish to do. 
+
+Then type
+
+>> r.show_sample(X)
+
+to observe the sample. If r is a mocap simulation, it will try to use
+mlabwrap to connect to matlab. 
+
+(Note: to resume the simulation, type r.t.train(). Don't type
+r.init_good_VH() again, because this will reset the initially learned
+weights).
+
+
+If you wish to get a number that tells you how will the model is able
+to predict test data, 
+
+type
+
+>> import empirical_evaluation as e
+>> e.empirically_evaluate(r.t) 
+(this will output the mean squared error per pixel per timestep on a
+random test sequence)
+In the paper, we reported.
+>> mean([e.empirically_evaluate(r.t) for i in range(500)]) 
+
+If you wish to save a simulation, please type r.t.save().
+Next time you start it, it will be loaded automatically. (but be sure
+not to type r.init_good_VH() because the visibile-hidden connections
+will be erased).
+
+================================================================
+
+The structure of the code.
+
+The code organized into several main packages.
+
+The root of all packages is the directory rtrbm. 
+
+In it there are the std, pylab.py, ff_net, trainers, and mio*.py, and mats.
+These are not very relevant for our work. The package trainers
+contains a class that takes care of doing the training / testing /
+saving; it's general purpose. 
+
+The package rbm implements simple Restricted Boltzmann Machine
+gradients. It also implements exact gradients and log probabilities
+(which is exponentially expensive in the size of the RBM) in order to
+make sure that we've computed the correct gradients (the trainer class
+imports a check_grad function; to see it, just type r.t.check_grad();
+it is meaningless to do so for the rtrbm and the trbm in
+general. However, if you modify the rnn_trbm class so that it uses the
+exact gradients of the rbm, grad_check will become meaningful and will
+give the correct answer).
+
+The main action takes place in the package p8/rnn_trbm
+
+In there, there are two classes: p8.rnn_trbm.rnn_trbm and
+p8.rnn_trbm.trbm that implement the trbm and the rtrbm. Please have a
+look at them. 
+
+The class empirically_evaluation implements what it says: it tries to
+get the (R)TRBM to predict the next timestep.
+
+
+Finally, the package p8.rnn_trbm.r.r_balls and p8.rnn_trbm.r.r_mocap
+implement the simulations themselves, and all the learning parameters
+are defined there. 

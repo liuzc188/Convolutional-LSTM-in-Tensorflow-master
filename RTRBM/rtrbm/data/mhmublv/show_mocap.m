@@ -1,0 +1,19 @@
+function show_mocap(visible)
+global skel
+
+load Data/data.mat
+dropframes;
+
+fprintf(1,'Preprocessing data \n');
+
+preprocess1
+
+preprocess2ilya
+numdims = size(batchdata,2); %data (visible) dimension
+
+
+postprocess; 
+
+fprintf(1,'Playing sequence\n');
+figure(2); expPlayData(skel, newdata, 1/30)
+

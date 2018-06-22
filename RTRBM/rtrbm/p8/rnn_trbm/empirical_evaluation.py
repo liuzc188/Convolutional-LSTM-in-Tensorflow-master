@@ -1,0 +1,109 @@
+
+"""
+
+ To try it out on something, try the following
+ import r.r_mocap as r 
+ or 
+ import r.r_balls as r
+ type the name of the simulation
+
+ Select 0 for RTRBM, 1 for TRBM
+ 
+ import empirical_evaluation as e
+ e.empirically_evaluate(r.t) will output the mean squared error per pixel per timestep
+ In the paper, we reported.
+ mean([e.empirically_evaluate(r.t) for i in range(500)]) 
+
+
+================================================================================
+
+In this file we will conduct a simple form of empirical evaluation of the models. 
+How exactly? We will take a training sequence, and do the following: we'll
+perform inference and ask the model to obtain a sample from the next
+timestep. The squared distance to the actual next time step will be
+measured; the distance will be in pixel space. 
+
+Thus: INPUT: we take a -loaded trainer object- (e.g., r.r_mocap.t)
+We output a number: average next timestep prediction accuracy.
+"""
+import rbm
+
+def norm(x):
+    return (x*x).mean()
+
+# When predicting, we simply sample from the conditional RBM in each timestep,
+# and compare the difference. We do that for 50 gibbs steps. Other numbers were not tried.
+# This number shouldn't matter much (hopefully).
+g_gen = 50
+
+
+def empirically_evaluate(t):
+
+    """
+    basically, what do we want to do here? 
+    I want to run inference (be it mean field or not) and then
+    predict the next timestep. 
+    
+    This is kind of nice because the way in which we do the
+    approximate prediction is identical in both the TRBM and the
+    RTRBM. 
+
+    In particular, the RTRBM uses mean-field for inference. 
+    """
+
+    V = t.valid_data_fn()
+    W = t.W
+
+    ## step 1: do the approximate mean-field inference (note: that's
+    ## also the way the TRBM does inference--the TRBM does not
+    ## sample the hiddens, but only computes their "mean-field"
+    ## values, which is identical to the inference procedure of
+    ## the RTRBM).
+
+    T, v = V.shape
+    h = W.h
+    assert(W.v == v)
+
+    VH, HH, b_init = W
+
+    from pylab import zeros, sigmoid, newaxis, sqrt
+
+
+    H = zeros((T, h))
+    B = zeros((T, h))
+
+    inp_from_past = zeros((T, h))
+
+    H[0] = sigmoid(VH * V[[0]]+ b_init[newaxis, :])
+
+    
+    ## STEP 1: INFER THE HIDDEN UNITS
+    for t in range(1, T):
+        B[[t]] = HH*H[[t - 1]]
+        H[[t]] = sigmoid(VH*V[[t]] + B[[t]])    
+
+
+
+    from pylab import Rsigmoid
+    loss = 0
+    for p in range(2, T):
+        target = V[t]
+
+        hid_bias  = HH * H[[t - 1]]
+            
+        # VH_t is the set of weights of the "RBM" at time t.
+        # its the same as normal vis-hid, except that it has 
+        # the additional bias from the previous time step.
+        VH_t = 1*VH
+        VH_t[2] = VH[2]            + hid_bias
+        ## original bias + extra, dynamic bias.
+
+	## the point of sampling the last one from MF is so that in the gaussian case, 
+	## 
+        pred, hid = rbm.sample_last_mf(VH_t, g_gen, 1, W.vis_gauss)
+
+        loss += ((target - pred)**2).sum()
+        
+    return (float(loss) / T) / v
+
+
